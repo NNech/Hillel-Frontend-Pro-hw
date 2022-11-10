@@ -1,5 +1,3 @@
-const API_URL = "https://6367baa6edc85dbc84da6382.mockapi.io/api/contact";
-
 const BTN_DELETE_CONTACT = "deleteBtn";
 const NEW_CONTACT_TEMPLATE_SELECTOR = ".newContactTemplate";
 
@@ -27,7 +25,6 @@ function onExistedContactsClick(e) {
     const classList = e.target.classList;
 
     const contactItem = e.target.closest(NEW_CONTACT_TEMPLATE_SELECTOR);
-    contactItem.classList.toggle("switch");
 
     if (classList.contains(BTN_DELETE_CONTACT)) {
         deleteContact(contactItem);
@@ -35,61 +32,25 @@ function onExistedContactsClick(e) {
 }
 
 function getContactList() {
-    fetch(API_URL)
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                Promise.reject(new Error("Error!"));
-                alert(response.status + "\n Incorrect user credentials!");
-            }
-        })
+    contactListApi
+        .getList()
         .then((contactList) => {
             contactList.forEach((contact) => addContactToHTML(contact));
         })
         .catch(showError);
 }
 
-function deleteContact(contactItem) {
-    let id = contactItem.dataset.id;
-
-    fetch(API_URL + "/" + id, {
-        method: "DELETE",
-        headers: {
-            "Content-type": "application/json",
-        },
-    })
-        .then((response) => {
-            if (response.ok) {
-                contactItem.remove();
-
-                return response.json();
-            } else {
-                Promise.reject(new Error("Error!"));
-                alert(response.status + "\n Incorrect user credentials!");
-            }
-        })
+function createContact(contact) {
+    contactListApi
+        .create(contact)
+        .then((contact) => addContactToHTML(contact))
         .catch(showError);
 }
 
-function createContact(contact) {
-    fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(contact),
-        headers: {
-            "Content-type": "application/json",
-        },
-    })
-        .then((response) => {
-            if (response.ok) {
-                addContactToHTML(contact);
+function deleteContact(contactItem) {
+    let id = contactItem.dataset.id;
 
-                return response.json();
-            } else {
-                throw new Error("Can not create Contact list from mockapi");
-            }
-        })
-        .catch(showError);
+    contactListApi.delete(id).then(contactItem.remove()).catch(showError);
 }
 
 function addContact() {
