@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="" />
+        <script src="./contactListApi.js" defer></script>
+        <script src="./script.js" defer></script>
+    </head>
+
+    <body>
+        <table id="contactList">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+
+            <tbody id="tableForCreatedContacts"></tbody>
+
+            <tr id="inputNewContact">
+                <td class="tdItem">
+                    <input type="text" class="inputField" id="inputName" />
+                </td>
+                <td class="tdItem">
+                    <input type="text" class="inputField" id="inputSurname" />
+                </td>
+                <td class="tdItem">
+                    <input type="text" class="inputField" id="inputPhone" />
+                </td>
+                <td class="btnItem">
+                    <button id="addContact">Add contact</button>
+                </td>
+            </tr>
+        </table>
+
+        <script id="contactTemplate" type="text/template">
+                     <tr class ="newContactTemplate">
+            	<td>(name)</td>
+            	<td>(surname)</td>
+            	<td>(phone)</td>
+            	<td>
+            		<button class="deleteBtn">Delete</button>
+            	</td>
+            </tr>
+        </script>
+    </body>
+</html>
