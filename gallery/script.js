@@ -4,11 +4,11 @@ const CURRENT_ALBUM_LINK = "#containerForAlbumLinks>div>a";
 
 const containerForPhotos = document.querySelector(CONTAINER_FOR_PHOTOS);
 const containerForAlbums = document.querySelector(CONTAINER_FOR_ALBUM_LINKS);
+let defaultAlbumId;
 
 containerForAlbums.addEventListener("click", onAlbumLinkClick);
 
 getListOfAlbumLinks();
-getDefaultOfAlbumPhotos();
 
 function onAlbumLinkClick(e) {
     clearContent();
@@ -30,12 +30,14 @@ function getListOfAlbumLinks() {
     GalleryApi.getList()
         .then((albums) => {
             albums.forEach((albumLink) => addAlbumLinksToHTML(albumLink));
+            defaultAlbumId = albums[0].id;
+            getDefaultOfAlbumPhotos();
         })
         .catch(showError);
 }
 
 function getDefaultOfAlbumPhotos() {
-    GalleryApi.getPhotos(1)
+    GalleryApi.getPhotos(defaultAlbumId)
         .then((albums) => {
             albums.forEach((albumPic) => addPhotoToHTML(albumPic));
         })
