@@ -24,7 +24,8 @@ function getUsers() {
         })
         .then((jsonObj) => {
             createNode(jsonObj);
-        });
+        })
+        .catch(showError);
 }
 
 function createNode(userData) {
@@ -54,4 +55,8 @@ function addUserDataContent(contentName, contentValue) {
 
 function addAvatarContent() {
     usersContent.innerHTML = `<img src=${user.avatar} alt='Logo'/>`;
+}
+
+function showError(error) {
+    alert(error.message);
 }
