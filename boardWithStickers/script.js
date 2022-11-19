@@ -3,16 +3,16 @@ const DELETE_NOTE_BTN_CLASS = ".deleteNoteBtn";
 const STICKERS_SELECTOR = ".containerForStickers";
 const NEW_STICKER_SELECTOR = ".newSticker";
 
-const containerForStickers = document.querySelector(STICKERS_SELECTOR);
-const addNoteSelector = document.querySelector(ADD_NOTE_SELECTOR);
+const $containerForStickers = $(STICKERS_SELECTOR);
+const $addNoteSelector = $(ADD_NOTE_SELECTOR);
 
-addNoteSelector.addEventListener("click", onAddNoteSelectorClick);
-containerForStickers.addEventListener("click", onContainerForStickersClick);
+$addNoteSelector.on("click", onAddNoteSelectorClick);
+$containerForStickers.on("click", onContainerForStickersClick);
 
 getBoardOfStickers();
 
 function onAddNoteSelectorClick(e) {
-    addSticker();
+    addSticker(e.target);
 }
 
 function onContainerForStickersClick(e) {
@@ -31,20 +31,14 @@ function deleteSticker(stickerId) {
 
 function addSticker() {
     BoardWithStickersApi.create()
-        .then((newStiker) => renderSticker(newStiker))
+        .then((newSticker) => renderSticker(newSticker))
         .catch(showError);
-}
-
-function updateSticker(sticker) {
-    if (sticker.id) {
-        BoardWithStickersApi.update(sticker.id, sticker).catch(showError);
-    }
 }
 
 function renderSticker(sticker) {
     const html = generateStickerHTML(sticker);
 
-    containerForStickers.insertAdjacentHTML("beforeend", html);
+    $containerForStickers.append(html);
 }
 
 function getBoardOfStickers() {
@@ -56,15 +50,13 @@ function getBoardOfStickers() {
 }
 
 function renderStickers(stickers) {
-    const html = stickers.map(generateStickerHTML).join("");
-
-    containerForStickers.innerHTML = html;
+    $containerForStickers.html(stickers.map(generateStickerHTML));
 }
 
 function generateStickerHTML(sticker) {
     return `
     <div class="newSticker" data-id="${sticker.id}">
-	<textarea class="" >${sticker.description}
+	<textarea class="description" >${sticker.description}
     </textarea>
 	<btn class="deleteNoteBtn">x</btn>
 	</div>

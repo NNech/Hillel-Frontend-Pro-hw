@@ -1,5 +1,5 @@
 class BoardWithStickersApi {
-    static URL = "https://62054479161670001741b708.mockapi.io/api/";
+    static URL = "https://62054479161670001741b708.mockapi.io/api/stickers";
 
     static request(url = "", method = "GET", body) {
         return fetch(BoardWithStickersApi.URL + url, {
@@ -20,34 +20,30 @@ class BoardWithStickersApi {
     }
 
     static getStickers() {
-        return BoardWithStickersApi.request("stickers").catch((error) => {
+        return BoardWithStickersApi.request("").catch((error) => {
             throw new Error("Can not get stickers!");
         });
     }
 
     static create() {
-        return BoardWithStickersApi.request("stickers", "POST")
-        .catch((error) => {
-            throw new Error("Can not create sticker on server");
+        return BoardWithStickersApi.request("", "POST").catch((error) => {
+            throw new Error("Can not create sticker on server!");
         });
     }
 
     static delete(id) {
-        return BoardWithStickersApi.request(
-            "stickers" + "/" + id,
-            "DELETE"
-        ).catch((error) => {
-            throw new Error("Can not delete sticker on server");
-        });
+        return BoardWithStickersApi.request("/" + id, "DELETE").catch(
+            (error) => {
+                throw new Error("Can not delete sticker on server");
+            }
+        );
     }
 
     static update(id, changes) {
-        return BoardWithStickersApi.request(
-            "stickers" + "/" + id,
-            "PUT",
-            changes
-        ).catch((error) => {
-            throw new Error("Can not update sticker on server");
-        });
+        return BoardWithStickersApi.request("/" + id, "PUT", changes).catch(
+            (error) => {
+                throw new Error("Can not update sticker on server!");
+            }
+        );
     }
 }
