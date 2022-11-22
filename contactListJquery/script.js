@@ -1,27 +1,44 @@
 const BTN_DELETE_CONTACT = "deleteBtn";
+const CREATE_CONTACT_SELECTOR = "#createContactBtn";
 const NEW_CONTACT_TEMPLATE_SELECTOR = ".newContactTemplate";
+const CREATE_CONTACT_CONTAINER = "#tableForCreatedContacts";
+const INPUT_NAME_CONTACT = "#inputName";
+const INPUT_SURNAME_CONTACT = "#inputSurname";
+const INPUT_PHONE_CONTACT = "#inputPhone";
 
-const inputName = document.querySelector("#inputName");
-const inputSurname = document.querySelector("#inputSurname");
-const inputPhone = document.querySelector("#inputPhone");
+const dialog = $("#dialog-form").dialog({
+    autoOpen: false,
+    height: 400,
+    width: 350,
+    modal: true,
+    buttons: {
+        Save: () => {
+            addContact();
+            cleanInputField();
+        },
+        Cancel: function () {
+            dialog.dialog("close");
+        },
+    },
+    close: function () {},
+});
 
-const existedContacts = document.querySelector("#tableForCreatedContacts");
-const contactTemplate = document.querySelector("#contactTemplate").innerHTML;
-const btnAddContact = document.querySelector("#addContact");
-const newContactElement = document.querySelector(".newContactTemplate");
+const $inputName = $(INPUT_NAME_CONTACT);
+const $inputSurname = $(INPUT_SURNAME_CONTACT);
+const $inputPhone = $(INPUT_PHONE_CONTACT);
+const $existedContacts = $(CREATE_CONTACT_CONTAINER);
+const $newContactElement = $(NEW_CONTACT_TEMPLATE_SELECTOR);
 
-btnAddContact.addEventListener("click", onButtonAddContactClick);
-existedContacts.addEventListener("click", onExistedContactsClick);
+$existedContacts.on("click", "." + BTN_DELETE_CONTACT, onBtnDeleteContactClick);
+$(CREATE_CONTACT_SELECTOR).on("click", onBtnCreateContactClick);
 
 getContactList();
 
-function onButtonAddContactClick(e) {
-    addContact(e);
-
-    cleanInputField();
+function onBtnCreateContactClick(e) {
+    dialog.dialog("open");
 }
 
-function onExistedContactsClick(e) {
+function onBtnDeleteContactClick(e) {
     const classList = e.target.classList;
 
     const contactItem = e.target.closest(NEW_CONTACT_TEMPLATE_SELECTOR);
@@ -32,25 +49,21 @@ function onExistedContactsClick(e) {
 }
 
 function getContactList() {
-    contactListApi
-        .getList()
+    ContactListJquaryApi.getList()
         .then((contactList) => {
-            contactList.forEach((contact) => renderContact(contact));
+            renderContactList(contactList);
         })
         .catch(showError);
 }
 
-function createContact(contact) {
-    contactListApi
-        .create(contact)
-        .then((contact) => renderContact(contact))
-        .catch(showError);
+function renderContactList(contactList) {
+    $existedContacts.html(contactList.map(generateContactHTML));
 }
 
 function deleteContact(contactItem) {
     let id = contactItem.dataset.id;
 
-    contactListApi.delete(id).then(contactItem.remove()).catch(showError);
+    ContactListJquaryApi.delete(id).then(contactItem.remove()).catch(showError);
 }
 
 function addContact() {
@@ -69,10 +82,16 @@ function addContact() {
     createContact(contact);
 }
 
-function renderContact(contact) {
-    const html = generateContactHTML(contact);
+function createContact(contact) {
+    ContactListJquaryApi.create(contact)
+        .then((contact) => renderContact(contact))
+        .catch(showError);
+}
 
-    existedContacts.insertAdjacentHTML("beforeend", html);
+function renderContact(contact) {
+    const $contact = generateContactHTML(contact);
+
+    $existedContacts.append($contact);
 }
 
 function generateContactHTML(contact) {
@@ -116,6 +135,7 @@ function cleanInputField() {
     inputName.value = "";
     inputSurname.value = "";
     inputPhone.value = "";
+    dialog.dialog("close");
 }
 
 function showError(error) {
