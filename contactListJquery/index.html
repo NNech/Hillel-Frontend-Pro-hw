@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+        />
+        <link rel="stylesheet" href="" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"
+            defer
+        ></script>
+        <script
+            src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+            defer
+        ></script>
+        <script src="./ContactListJquaryApi.js" defer></script>
+        <script src="./script.js" defer></script>
+    </head>
+    <body>
+        <div id="dialog-form" title="Contact">
+            <form>
+                <fieldset>
+                    <label for="inputName">Name</label>
+                    <input type="text" class="inputField" id="inputName" />
+                    <label for="inputSurname">Surname</label>
+                    <input type="text" class="inputField" id="inputSurname" />
+                    <label for="inputPhone">Phone</label>
+                    <input type="text" class="inputField" id="inputPhone" />
+                </fieldset>
+            </form>
+        </div>
+
+        <div><button id="createContactBtn">Create contact</button></div>
+
+        <table id="contactList">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+
+            <tbody id="tableForCreatedContacts"></tbody>
+        </table>
+
+        <script id="contactTemplate" type="text/template">
+                     <tr class ="newContactTemplate">
+            	<td>(name)</td>
+            	<td>(surname)</td>
+            	<td>(phone)</td>
+            	<td>
+            		<button class="deleteBtn">Delete</button>
+            	</td>
+            </tr>
+        </script>
+    </body>
+</html>
