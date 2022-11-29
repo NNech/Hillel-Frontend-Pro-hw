@@ -8,6 +8,7 @@
 .addNoteBtn {
     cursor: pointer;
 }
+
 .newSticker {
     background-color: aqua;
     margin: auto;
@@ -15,6 +16,7 @@
     margin-bottom: 20px;
     cursor: pointer;
 }
+
 .containerForStickers {
     padding-top: 10px;
     display: grid;

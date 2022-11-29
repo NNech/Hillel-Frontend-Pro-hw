@@ -4,22 +4,7 @@ const STICKERS_SELECTOR = ".containerForStickers";
 const NEW_STICKER_SELECTOR = ".newSticker";
 const STICKER_DESCRIPTION_CLASS = ".description";
 
-dialog = $("#dialog-form").dialog({
-    autoOpen: false,
-    height: 400,
-    width: 350,
-    modal: true,
-    buttons: {
-        Save: () => {
-            getSticker();
-            clear();
-        },
-        Cancel: function () {
-            dialog.dialog("close");
-        },
-    },
-    close: function () {},
-});
+const modal = new FormModal("#dialog-form", addSticker);
 
 const $containerForStickers = $(STICKERS_SELECTOR);
 const $addNoteSelector = $(ADD_NOTE_SELECTOR);
@@ -32,7 +17,7 @@ $(STICKERS_SELECTOR)
 getBoardOfStickers();
 
 function onBtnAddNoteClick(e) {
-    dialog.dialog("open");
+    modal.open();
 }
 
 function onBtnDeleteNoteClick(e) {
@@ -67,18 +52,6 @@ function deleteSticker(stickerId) {
     StickerServerModalApi.delete(stickerId).catch(showError);
 }
 
-function getDescriptionValue() {
-    return {
-        description: description.value,
-    };
-}
-
-function getSticker() {
-    const sticker = getDescriptionValue();
-
-    addSticker(sticker);
-}
-
 function addSticker(newSticker) {
     StickerServerModalApi.create(newSticker)
         .then((newSticker) => renderSticker(newSticker))
@@ -111,11 +84,6 @@ function generateStickerHTML(sticker) {
 	<btn class="deleteNoteBtn">x</btn>
 	</div>
   `;
-}
-
-function clear() {
-    description.value = "";
-    dialog.dialog("close");
 }
 
 function showError(error) {
