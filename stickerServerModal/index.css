@@ -1,0 +1,22 @@
+#addNote {
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgb(205, 200, 200);
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.addNoteBtn {
+    cursor: pointer;
+}
+.newSticker {
+    background-color: aqua;
+    margin: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.containerForStickers {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
