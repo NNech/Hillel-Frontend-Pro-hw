@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+        />
+        <link rel="stylesheet" href="./index.css" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"
+            defer
+        ></script>
+        <script
+            src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"
+            defer
+        ></script>
+        <script src="./StickerServerModalApi.js" defer></script>
+        <script src="./FormModal.js" defer></script>
+        <script src="./script.js" defer></script>
+    </head>
+    <body>
+        <div id="addNote"><button class="addNoteBtn">Add Note</button></div>
+        <div class="containerForStickers"></div>
+
+        <div id="dialog-form" title="Sticker">
+            <form>
+                <fieldset>
+                    <input type="hidden" id="id" />
+                    <label for="description">Description</label>
+                    <input id="description" name="description" />
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>
