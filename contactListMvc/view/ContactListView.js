@@ -1,6 +1,6 @@
 class ContactListView {
     static CREATE_CONTACT_CONTAINER = "#tableForCreatedContacts";
-    static BTN_DELETE_CONTACT = "deleteBtn";
+    static BTN_DELETE_CONTACT = ".deleteBtn";
     static NEW_CONTACT_TEMPLATE_SELECTOR = ".newContactTemplate";
 
     #$contact;
@@ -24,7 +24,7 @@ class ContactListView {
             </tr>
 
             <tbody id="tableForCreatedContacts"></tbody>
-			</table>`).on("click", "." + ContactListView.BTN_DELETE_CONTACT, (e) =>
+			</table>`).on("click", ContactListView.BTN_DELETE_CONTACT, (e) =>
             this.onBtnDeleteContactClick(e)
         );
     }
@@ -33,6 +33,7 @@ class ContactListView {
         const contact = e.target.closest(
             ContactListView.NEW_CONTACT_TEMPLATE_SELECTOR
         );
+
         let id = contact.dataset.id;
 
         this.options.onDelete(id);
@@ -56,19 +57,18 @@ class ContactListView {
     }
 
     renderContact(contact) {
-        const $contact = this.generateContactHTML(contact);
-
-        this.#$tableForCreatedContacts.append($contact);
+        const newContact = this.generateContactHTML(contact);
+        this.#$tableForCreatedContacts.append(newContact);
     }
 
     generateContactHTML(contact) {
-        return `<tr class ="newContactTemplate" data-id=${contact.id}>
+        return `<tr class ="newContactTemplate" data-id="${contact.id}">
 				<td>${contact.name}</td>
 					<td>${contact.surname}</td>
 					<td>${contact.phone}</td>
 					<td>
 						<button class="deleteBtn">Delete</button>
 					</td>
-            </tr>`;
+""            </tr>`;
     }
 }

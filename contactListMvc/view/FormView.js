@@ -1,7 +1,7 @@
 class FormView extends View {
-    INPUT_NAME_CONTACT = "#inputName";
-    INPUT_SURNAME_CONTACT = "#inputSurname";
-    INPUT_PHONE_CONTACT = "#inputPhone";
+    static INPUT_NAME_CONTACT = "#inputName";
+    static INPUT_SURNAME_CONTACT = "#inputSurname";
+    static INPUT_PHONE_CONTACT = "#inputPhone";
     static BTN_ADD_CONTACT = "#addContact";
 
     $inputName = $(this.INPUT_NAME_CONTACT);
@@ -15,10 +15,8 @@ class FormView extends View {
     }
 
     onButtonAddContactClick(e) {
-        e.preventDefault();
         const contact = this.getInputFieldValue();
 
-        /*
         if (
             this.isEmptyStrValidation(contact.name) ||
             this.isEmptyStrValidation(contact.surname)
@@ -28,7 +26,6 @@ class FormView extends View {
         if (this.isNotPhoneValidation(contact.phone)) {
             return;
         }
-		*/
 
         this.options.onAdd(contact);
         this.cleanInputField();
@@ -46,10 +43,6 @@ class FormView extends View {
         inputName.value = "";
         inputSurname.value = "";
         inputPhone.value = "";
-    }
-
-    setInputFieldValue(contactData) {
-        //TODO
     }
 
     isEmptyStrValidation(input) {

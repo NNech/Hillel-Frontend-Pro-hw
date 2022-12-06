@@ -19,20 +19,12 @@ class Controller {
     }
 
     addContact(contact) {
-        if (contact.id) {
-            // update
-            this.collection
-                .update(contact.id, contact)
-                .then(() => {
-                    this.contactListView.replaceItem(contact.id, contact);
-                })
-                .catch(this.showError);
-        } else {
-            // create
-            this.collection.create(contact).then(() => {
-                this.contactListView.renderContact(contact);
-            });
-        }
+        this.collection
+            .create(contact)
+            .then((contectWithId) => {
+                this.contactListView.renderContact(contectWithId);
+            })
+            .catch(this.showError);
     }
 
     deleteContact(id) {
