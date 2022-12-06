@@ -35,7 +35,7 @@ function getContactList() {
     contactListApi
         .getList()
         .then((contactList) => {
-            contactList.forEach((contact) => renderContact(contact));
+            contactList.forEach((contact) => renderContactList(contact));
         })
         .catch(showError);
 }
@@ -43,7 +43,7 @@ function getContactList() {
 function createContact(contact) {
     contactListApi
         .create(contact)
-        .then((contact) => renderContact(contact))
+        .then((contact) => renderContactList(contact))
         .catch(showError);
 }
 
@@ -69,7 +69,7 @@ function addContact() {
     createContact(contact);
 }
 
-function renderContact(contact) {
+function renderContactList(contact) {
     const html = generateContactHTML(contact);
 
     existedContacts.insertAdjacentHTML("beforeend", html);
