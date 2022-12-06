@@ -1,15 +1,15 @@
-class ContactListView {
+class ContactListView extends View {
     static CREATE_CONTACT_CONTAINER = "#tableForCreatedContacts";
     static BTN_DELETE_CONTACT = ".deleteBtn";
     static NEW_CONTACT_TEMPLATE_SELECTOR = ".newContactTemplate";
 
-    #$contact;
     #$tableForCreatedContacts;
 
     constructor(options) {
+        super();
         this.options = options;
-        this.#$contact = this.init();
-        this.#$tableForCreatedContacts = this.#$contact.find(
+        this.$container = this.init();
+        this.#$tableForCreatedContacts = this.$container.find(
             ContactListView.CREATE_CONTACT_CONTAINER
         );
     }
@@ -37,10 +37,6 @@ class ContactListView {
         let id = contact.dataset.id;
 
         this.options.onDelete(id);
-    }
-
-    appendTo($wrapEl) {
-        $wrapEl.append(this.#$contact);
     }
 
     removeContact(id) {
