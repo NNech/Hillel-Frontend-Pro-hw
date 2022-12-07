@@ -7,9 +7,9 @@ class GalleryApi {
         return fetch(GalleryApi.ALBUM_LINKS_API_URL).then((response) => {
             if (response.ok) {
                 return response.json();
-            } else {
-                throw new Error("Can not get list of album links!");
             }
+
+            throw new Error("Can not get list of album links!");
         });
     }
 
@@ -17,9 +17,9 @@ class GalleryApi {
         return fetch(GalleryApi.FOTOS_API_URL + albumId).then((response) => {
             if (response.ok) {
                 return response.json();
-            } else {
-                throw new Error("Can not get album photos!");
             }
+
+            throw new Error("Can not get album photos!");
         });
     }
 }

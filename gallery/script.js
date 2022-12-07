@@ -1,6 +1,7 @@
 const CONTAINER_FOR_PHOTOS = ".photos";
 const CONTAINER_FOR_ALBUM_LINKS = "#containerForAlbumLinks";
 const CURRENT_ALBUM_LINK = "#containerForAlbumLinks>div>a";
+const FIRST_ALBUM_INDEX = 0;
 
 const containerForPhotos = document.querySelector(CONTAINER_FOR_PHOTOS);
 const containerForAlbums = document.querySelector(CONTAINER_FOR_ALBUM_LINKS);
@@ -30,7 +31,7 @@ function getListOfAlbumLinks() {
     GalleryApi.getList()
         .then((albums) => {
             albums.forEach((albumLink) => addAlbumLinksToHTML(albumLink));
-            defaultAlbumId = albums[0].id;
+            defaultAlbumId = albums[FIRST_ALBUM_INDEX].id;
             getDefaultOfAlbumPhotos();
         })
         .catch(showError);
