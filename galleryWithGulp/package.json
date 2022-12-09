@@ -1,0 +1,17 @@
+{
+    "name": "gallerywithgulp",
+    "version": "1.0.0",
+    "description": "gallery with gulp",
+    "main": "GalleryApi.js",
+    "scripts": {
+        "gulp": "gulp"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-clean": "^0.4.0",
+        "gulp-cli": "^2.3.0",
+        "gulp-concat": "^2.6.1"
+    }
+}
