@@ -4,7 +4,8 @@
     "description": "",
     "main": "StudentApi.js",
     "scripts": {
-        "gulp": "gulp"
+        "start": "gulp serve",
+        "build": "gulp build"
     },
     "author": "",
     "license": "ISC",
@@ -12,6 +13,7 @@
         "jquery": "^3.6.1"
     },
     "devDependencies": {
+        "browser-sync": "^2.27.10",
         "gulp": "^4.0.2",
         "gulp-clean": "^0.4.0",
         "gulp-cli": "^2.3.0",

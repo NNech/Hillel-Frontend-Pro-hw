@@ -1,6 +1,7 @@
-const { src, dest, series, parallel } = require("gulp");
+const { src, dest, series, parallel, watch } = require("gulp");
 const concat = require("gulp-concat");
 const clean = require("gulp-clean");
+const browserSync = require("browser-sync").create();
 
 function cleanDist() {
     return src("./dist", { read: false, allowEmpty: true }).pipe(clean());
@@ -26,7 +27,28 @@ function copyHtml() {
     return src("./src/index.html").pipe(dest("dist"));
 }
 
-exports.default = series(
-    cleanDist,
-    parallel(copyJs, copyVendorJs, copyCss, copyHtml)
-);
+function serve(done) {
+    browserSync.init({
+        server: {
+            baseDir: "./dist",
+        },
+    });
+
+    watch("./src/index.html", series(copyHtml, reloadBrowser));
+    watch("./src/**/*.js", series(copyJs, reloadBrowser));
+    watch("./src/**/*.css", series(copyCss, reloadBrowser));
+
+    done();
+}
+
+function reloadBrowser(done) {
+    browserSync.reload();
+    done();
+}
+
+function taskBuild() {
+    return series(cleanDist, parallel(copyJs, copyVendorJs, copyCss, copyHtml));
+}
+
+exports.build = taskBuild();
+exports.serve = series(taskBuild(), serve);
